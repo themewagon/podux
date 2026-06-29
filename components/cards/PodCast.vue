@@ -2,7 +2,7 @@
     <div
         class="lg:p-1 relative h-auto flex flex-col lg:rounded-2xl lg:bg-box-bg lg:shadow-lg lg:shadow-box-shadow lg:border lg:border-box-border">
         <div class="relative h-max min-h-max">
-            <nuxt-img :src="coverImage" alt="Cover image" width="280"
+            <nuxt-img :src="resolvedCoverImage" alt="Cover image" width="280"
                 class="w-full h-32 sm:h-36 md:h-40 lg:h-48 rounded-xl object-cover"/>
                 <span class="absolute top-2 right-2 px-2 rounded-full text-sm text-white bg-primary">
             {{ duration }}
@@ -44,4 +44,9 @@ const { title, href, duration, coverImage, category, createdAt, description } = 
     createdAt: string,
     description: string
 }>()
+
+const resolvedCoverImage = computed(() => {
+    if (!coverImage) return ''
+    return coverImage.startsWith('http') ? coverImage : useAssetUrl(coverImage)
+})
 </script>
